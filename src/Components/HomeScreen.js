@@ -23,7 +23,7 @@ export default function HomeScreen({getUid}) {
     const classes = useStyles();
     const id = 3;
     const[userId, setUserId] = useState(null);
-    () => getUid(uid)
+    // () => getUid(uid)
     return (<main className={classes.content}>
         <div className={classes.toolbar}/>
         <>
