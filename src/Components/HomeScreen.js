@@ -1,10 +1,10 @@
 import Typography from "@material-ui/core/Typography";
-import React from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import HealthTable from "./UserHealthInfo";
+import UserSearch from "./UserSearch";
 
 const drawerWidth = 240;
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,14 +19,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function HomeScreen() {
+export default function HomeScreen({getUid}) {
     const classes = useStyles();
-
+    const id = 3;
+    const[userId, setUserId] = useState(null);
+    () => getUid(uid)
     return (<main className={classes.content}>
         <div className={classes.toolbar}/>
         <>
-        <h1>Summary</h1>
-        <HealthTable />
+            <UserSearch getId={uid => setUserId(uid)}/>
+            <h1>Summary</h1>
+            {userId ? <HealthTable user_id={userId}/> : <p>Waiting for response</p>}
         </>
     </main>);
 }

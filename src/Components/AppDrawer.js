@@ -23,12 +23,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import {Router, Route, Link, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Link, Switch} from "react-router-dom";
 import {createBrowserHistory} from "history";
 import HomeScreen from "./HomeScreen";
 
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 const history = createBrowserHistory();
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +60,7 @@ export default function AppDrawer() {
 
     return (
         <div className={classes.root}>
-            <Router history={history}>
+            <BrowserRouter history={history}>
                 <CssBaseline/>
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
@@ -95,13 +95,13 @@ export default function AppDrawer() {
                 </Drawer>
                 <Switch>
                     <Route path="/About">
-                        <p></p>
+                        <p>Hello</p>
                     </Route>
                     <Route path="/">
                         <HomeScreen />
                     </Route>
                 </Switch>
-            </Router>
+            </BrowserRouter>
 
         </div>
     );

@@ -16,33 +16,19 @@ const useStyles = makeStyles({
     },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-export default function HealthTable() {
+export default function HealthTable({user_id}) {
     const classes = useStyles();
 
-    const [data, setData] = useState({ hits: [] });
-
+    const [data, setData] = useState();
+    console.log(user_id);
     useEffect(async () => {
+        // window.addEventListener('load', () => this.handleLoad());
         const result = await axios(
-            'https://fitbit-dat.herokuapp.com/1',
+            `https://fitbit-dat.herokuapp.com/${user_id}`,
         );
-        console.log(result.data);
         setData(result.data);
-        console.log(data);
     }, []);
-    console.log(data[0]);
+
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
@@ -53,10 +39,14 @@ export default function HealthTable() {
                         <TableCell align="right">Steps</TableCell>
                         <TableCell align="right">Distance</TableCell>
                         <TableCell align="right">Minutes_sitting</TableCell>
+                        <TableCell align="right">Minutes_of_slow_activity</TableCell>
+                        <TableCell align="right">Minutes_of_moderate_activity</TableCell>
+                        <TableCell align="right">Minutes_of_intense_activity</TableCell>
+                        <TableCell align="right">Calories_Activity</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((dataPerDay) => (
+                    { data ? data.map((dataPerDay) => (
                         <TableRow key={dataPerDay.Date}>
                             <TableCell component="th" scope="row">
                                 {dataPerDay.Date}
@@ -65,10 +55,27 @@ export default function HealthTable() {
                             <TableCell align="right">{dataPerDay.Steps}</TableCell>
                             <TableCell align="right">{dataPerDay.Distance}</TableCell>
                             <TableCell align="right">{dataPerDay.Minutes_sitting}</TableCell>
+                            <TableCell align="right">{dataPerDay.Minutes_of_slow_activity}</TableCell>
+                            <TableCell align="right">{dataPerDay.Minutes_of_moderate_activity}</TableCell>
+                            <TableCell align="right">{dataPerDay.Minutes_of_intense_activity}</TableCell>
+                            <TableCell align="right">{dataPerDay.Calories_Activity}</TableCell>
                         </TableRow>
-                    ))}
+                    )) : <TableRow>
+                        <TableCell component="th" scope="row">
+                            null
+                        </TableCell>
+                        <TableCell align="right">null</TableCell>
+                        <TableCell align="right">null</TableCell>
+                        <TableCell align="right">null</TableCell>
+                        <TableCell align="right">null</TableCell>
+                        <TableCell align="right">null</TableCell>
+                        <TableCell align="right">null</TableCell>
+                        <TableCell align="right">null</TableCell>
+                        <TableCell align="right">null</TableCell>
+                    </TableRow>}
                 </TableBody>
             </Table>
         </TableContainer>
     );
+
 }
