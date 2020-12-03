@@ -80,7 +80,7 @@ export default function AppDrawer() {
                     <div className={classes.toolbar}/>
                     <Divider/>
                     <List>
-                        {['Health Index', 'About'].map((text, index) => (
+                        {['Health Index'].map((text, index) => (
                             <>
                                 {text === 'Health Index' ?
                                     <ListItem button key={text} component={Link} to="/">

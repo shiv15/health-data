@@ -21,13 +21,14 @@ export default function HealthTable({user_id}) {
 
     const [data, setData] = useState();
     console.log(user_id);
-    useEffect(async () => {
+    // useEffect(async () => {
         // window.addEventListener('load', () => this.handleLoad());
-        const result = await axios(
+        const result = axios(
             `https://fitbit-dat.herokuapp.com/${user_id}`,
-        );
-        setData(result.data);
-    }, []);
+        ).then((result)=>{
+            setData(result.data);
+        })
+    // }, []);
 
     return (
         <TableContainer component={Paper}>
